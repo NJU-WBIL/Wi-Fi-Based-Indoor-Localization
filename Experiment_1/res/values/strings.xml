@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">A1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+   
+    <string name="confirm_button">Confirm</string>
+    <string name="next_button">Next</string>
+    <string name="back_button">Back</string>
+    <string name="start_button">Start</string>
+   
+    <string name="next_toast">next!</string>
+    <string name="confirm_toast">confirm!</string>
+    <string name="start_toast">Start!</string>
+    <string name="already_start_toast">The timer is already running!</string>
+    <string name="complete_toast">Completed!</string>
+    <string name="please_enter_loc_toast">PLEASE ENTER THE LOCATION!</string>
+    <string name="please_enter_next_toast">PLEASE ENTER THE NEXT　BUTTON FIRST!</string>
+    <string name="no_data_toast">NO DATA YET!</string>
+    
+       
+
+</resources>
