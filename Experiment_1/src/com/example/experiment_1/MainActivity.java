@@ -57,12 +57,6 @@ public class MainActivity extends Activity {
 	Context myContext;
 	DBHelper SQLDB;
 
-
-
-
-
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,10 +73,6 @@ public class MainActivity extends Activity {
 
 
 
-
-
-
-
 		/*************** start ****************/
 
 		mstartButton=(Button)findViewById(R.id.start_button);
@@ -94,9 +84,7 @@ public class MainActivity extends Activity {
 				EditText locY=(EditText) findViewById(R.id.loc_y);//获取文本
 				EditText locZ=(EditText) findViewById(R.id.loc_z);//获取文本
 
-				loc[numberOfTest][0]=Integer.parseInt(locX.getText().toString());
-				loc[numberOfTest][1]=Integer.parseInt(locY.getText().toString());
-				loc[numberOfTest][2]=Integer.parseInt(locZ.getText().toString());
+				
 
 				for(int i=0;i<50;i++){
 					for(int j=0;j<50;j++){
@@ -104,12 +92,16 @@ public class MainActivity extends Activity {
 						check_result[i][j]="0";
 					}
 				}
+				
 				if("".equals(locX.getText().toString())||"".equals(locY.getText().toString())||"".equals(locZ.getText().toString())){
 					Toast.makeText(MainActivity.this, R.string.please_enter_loc_toast, Toast.LENGTH_SHORT).show();
 				}
 				else if(isStop){
 					Toast.makeText(MainActivity.this, R.string.start_toast, Toast.LENGTH_SHORT).show();
 					tvShow = (TextView)findViewById(R.id.tvshow);
+					loc[numberOfTest][0]=Integer.parseInt(locX.getText().toString());
+					loc[numberOfTest][1]=Integer.parseInt(locY.getText().toString());
+					loc[numberOfTest][2]=Integer.parseInt(locZ.getText().toString());
 					tvShow.setText("");
 					msg1.setText("");
 					msg2.setText("");
@@ -120,7 +112,6 @@ public class MainActivity extends Activity {
 					}else {
 						stopTimer();
 					}
-					//timer.schedule(task, 1000, 2000); // 1s后执行task,经过1s再次执行
 				}
 				else{
 					Toast.makeText(MainActivity.this, R.string.already_start_toast, Toast.LENGTH_SHORT).show();
@@ -145,25 +136,6 @@ public class MainActivity extends Activity {
 					Toast.makeText(MainActivity.this, R.string.please_enter_loc_toast, Toast.LENGTH_SHORT).show();
 				}
 				else{
-					/*loc[numberOfTest][0]=Integer.parseInt(locX.getText().toString());
-					loc[numberOfTest][1]=Integer.parseInt(locY.getText().toString());
-					loc[numberOfTest][2]=Integer.parseInt(locZ.getText().toString());*/
-
-
-					////////////DB////////////
-					for(int i=0;i<numberOfAP;i++){
-						if(!check_result[i][0].equals("0")){
-							Log.i("check_result",check_result[i][0]+check_result[i][1]);
-
-							//SQLDB.insert(loc[numberOfTest][0],loc[numberOfTest][1],loc[numberOfTest][2],
-							//	check_result[i][0], check_result[i][1]);
-							//check_result[i][0], );
-
-						}else
-							break;
-					}
-					/////////////////////////
-
 					numberOfTest++;//第几个点
 					numberOfAP=0;
 					locX.setText("");
@@ -195,16 +167,9 @@ public class MainActivity extends Activity {
 				EditText locZ=(EditText) findViewById(R.id.loc_z);//获取文本
 
 				if("".equals(locX.getText().toString())||"".equals(locY.getText().toString())||"".equals(locZ.getText().toString())){
-					/*if(falseInteger.parseInt(APStrength[0][0][1])==0){
-						Toast.makeText(MainActivity.this, R.string.no_data_toast, Toast.LENGTH_SHORT).show();
-					}
-					else{*/
-					Toast.makeText(MainActivity.this, R.string.confirm_toast, Toast.LENGTH_SHORT).show();
-					//Intent i=new Intent(MainActivity.this,ShowActivity.class);
-					//startActivity(i);
+					//if()
 					System.out.println("confirm!");
 					printwifi();
-					//}
 				}
 				else{
 					Toast.makeText(MainActivity.this, R.string.please_enter_next_toast, Toast.LENGTH_SHORT).show();
@@ -280,29 +245,11 @@ public class MainActivity extends Activity {
 	/************** printWiFi ***************/
 
 	public void printwifi(){
-		/*
-		otherwifi="采样结果：\n";
-		for(int i=0;i<50;i++){
-			otherwifi+="第" + (i+1)+ "组\t位置：(" +loc[i][0]+ "," +loc[i][1]+ "," +loc[i][2]+ ",)\n";
-			otherwifi+="AP信号：\n";
-			if(Integer.parseInt(check_result[i][1])<0){
-				otherwifi+=check_result[i][0]+"\t"+check_result[i][1]+"\n";
-			}
-			else break;
-		}
-		msg1.setText(otherwifi);
-		 */
 		tvShow.setText("");
-		msg1.setText("");
 		msg2.setText("");
 		msg3.setText("");
 		msg1.setText(SQLDB.get_all());
 	}
-
-
-
-
-
 
 
 	/*************** Timer *****************/
@@ -346,22 +293,25 @@ public class MainActivity extends Activity {
 					stopTimer();
 					isStop=true;
 					ifover=true;
-					String show1="";
 					for(int i=0;i<numberOfAP;i++){
-						for(int j=0;j<numberOfCheck;j++){
-							show1+=check_result[i][0]+"/"+check_result[i][j]+'\n';
-						}
 						check_result[i][1]=cal_str_average(check_result[i],numberOfCheck-1);
 						Log.i("check_result","later:"+check_result[i][1]);
 
-						if(check_result[i][0].equals("24:69:68:a4:4c:4e")){
+						/*if(check_result[i][0].equals("24:69:68:f1:ee:b8") 
+								||check_result[i][0].equals("24:69:68:f1:01:58")
+								||check_result[i][0].equals("24:69:68:a4:4c:4e")
+								||check_result[i][0].equals("d4:83:04:2f:84:9a")
+								||check_result[i][0].equals("24:69:68:a4:4e:0a")
+								||check_result[i][0].equals("d4:83:04:2f:a2:94")
+								||check_result[i][0].equals("f0:b4:29:64:f9:df")
+								||check_result[i][0].equals("f0:b4:29:65:2c:8b")){*/
+						if(!check_result[i][0].equals("0")) {
 							SQLDB.insert(loc[numberOfTest][0],loc[numberOfTest][1],loc[numberOfTest][2],
 									check_result[i][0], check_result[i][1]);
 						}
 
-						//msg1.setText(show1);
-						tvShow.setText("");
-						msg1.setText(SQLDB.get_all());
+						tvShow.setText("Done!");
+						msg1.setText("");
 						msg2.setText("");msg3.setText("");
 					}
 					numberOfCheck=0;
@@ -376,71 +326,6 @@ public class MainActivity extends Activity {
 		};
 	};
 
-
-
-
-
-
-	/************** cal_average ****************/
-	/*
-	void cal_str_average(String[]a,int number){
-		int []temp=new int[number];
-		int real_number=number;
-		int average=0;
-		int total=0;
-		for(int i=0;i<number;i++){
-			temp[i]=Integer.parseInt(a[i+1]);
-			average+=temp[i];
-			if(temp[i]==0)
-				real_number--;
-		}
-		total=average;
-		average=average/real_number;
-		int fangcha=0;
-		for(int i=0;i<number;i++)
-			if(temp[i]!=0)
-				fangcha+=((temp[i]-average)*(temp[i]-average));
-		fangcha=fangcha/real_number;	
-		while(fangcha>10)
-		{
-			int pre_average=average;
-			int min_i=0;int max_i=0;//标识最大最小值
-			for(int i=0;i<number;i++)
-				if(temp[i]!=0)
-				{
-					max_i=i;min_i=i;break;
-				}
-			for(int i=0;i<number;i++){
-				if(temp[i]!=0){
-					if(temp[i]>temp[max_i])
-						max_i=i;
-					if(temp[i]<temp[min_i])
-						min_i=i;
-				}
-			}
-			//System.out.println(max_i+" "+min_i);
-			if(max_i==min_i)
-			{
-				total=total-temp[max_i];
-				real_number--;
-			}
-			else if(max_i!=min_i&&real_number!=2){
-				total=total-temp[max_i]-temp[min_i];
-				real_number-=2;
-			}//real_number=2时 再-2就等于0了  需避免这种情况的发生
-			average=total/real_number;
-			temp[min_i]=0;temp[max_i]=0;
-			fangcha=0;
-			for(int i=0;i<number;i++)
-				if(temp[i]!=0)
-					fangcha+=((temp[i]-average)*(temp[i]-average));
-			fangcha=fangcha/real_number;
-			if(fangcha==0&&real_number==2)
-				average=pre_average;
-		}
-		a[1]=String.valueOf((float)average);
-	}
-	 */
 
 	public static String cal_str_average(String[]a,int number){
 		double []temp=new double[number];
